@@ -36,6 +36,7 @@ public class HUD {
         worldTimer = 60;
         timeCount = 0;
         distance = 0;
+        score = 0;
 
         viewport = new FitViewport(Nachuriken.WIDTH, Nachuriken.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, batch);
