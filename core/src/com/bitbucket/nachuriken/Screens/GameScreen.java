@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.bitbucket.nachuriken.GameScenes.HUD;
 import com.bitbucket.nachuriken.Nachuriken;
 
 /**
@@ -15,15 +16,16 @@ import com.bitbucket.nachuriken.Nachuriken;
 public class GameScreen implements Screen {
 
     private Nachuriken game;
-    private Texture texture;
 
     private OrthographicCamera gameCam;
     private Viewport viewport;
+
+    private HUD hud;
     public GameScreen(Nachuriken game) {
         this.game = game;
-        texture = new Texture("badlogic.jpg");
         gameCam = new OrthographicCamera();
-        viewport = new FitViewport(800, 480, gameCam);
+        viewport = new FitViewport(Nachuriken.WIDTH, Nachuriken.HEIGHT, gameCam);
+        hud = new HUD(game.batch);
     }
 
     @Override
@@ -33,12 +35,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.setProjectionMatrix(gameCam.combined);
-        game.batch.begin();
-        game.batch.draw(texture, 0, 0);
-        game.batch.end();
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
