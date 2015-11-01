@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -16,6 +17,7 @@ public class GameScreen implements Screen {
     private final OurGame game;
     private final World world;
     private final Box2DDebugRenderer debugRenderer;
+    private final Texture playerImage;
     OrthographicCamera camera;
 
     public GameScreen(OurGame ourGame) {
@@ -23,6 +25,8 @@ public class GameScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, OurGame.WIDTH, OurGame.HEIGHT);
+
+        playerImage = new Texture(Gdx.files.internal("player.png"));
 
         Box2D.init();
         world = new World(new Vector2(0, -10), true);
@@ -40,11 +44,14 @@ public class GameScreen implements Screen {
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+
         // Set our body's starting position in the world
         bodyDef.position.set(100, 300);
 
         // Create our body in the world using our body definition
         Body body = world.createBody(bodyDef);
+
+        body.setUserData(playerImage);
 
         // Create a circle shape and set its radius to 6
         CircleShape circle = new CircleShape();
@@ -96,6 +103,7 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         game.font.draw(game.batch, "Hello, World!", 0, 480);
+        game.batch.draw(playerImage, 50, 50);
         game.batch.end();
 
         debugRenderer.render(world, camera.combined);
