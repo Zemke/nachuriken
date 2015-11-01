@@ -15,8 +15,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
 
         configuration.title = OurGame.TITLE;
-        configuration.width  = OurGame.WIDTH;
-        configuration.height  = OurGame.HEIGHT;
+        configuration.width = OurGame.WIDTH;
+        configuration.height = OurGame.HEIGHT;
 
         return configuration;
     }
