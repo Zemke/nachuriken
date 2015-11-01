@@ -19,6 +19,7 @@ public class GameScreen implements Screen {
     private final Box2DDebugRenderer debugRenderer;
     private final Texture playerImage;
     OrthographicCamera camera;
+    private Body body;
 
     public GameScreen(OurGame ourGame) {
         game = ourGame;
@@ -35,7 +36,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        createPlayer();
         createFloor();
     }
 
@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
         bodyDef.position.set(100, 300);
 
         // Create our body in the world using our body definition
-        Body body = world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
 
         body.setUserData(playerImage);
 
@@ -97,13 +97,17 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(255, 255, 255, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (body == null) {
+            createPlayer();
+        }
+
         camera.update();
 
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.font.draw(game.batch, "Hello, World!", 0, 480);
-        game.batch.draw(playerImage, 50, 50);
+        game.batch.draw(playerImage, body.getPosition().x, body.getPosition().y);
         game.batch.end();
 
         debugRenderer.render(world, camera.combined);
