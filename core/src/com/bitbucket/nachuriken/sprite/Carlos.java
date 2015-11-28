@@ -38,11 +38,19 @@ public class Carlos {
 
         if (position.y <= Ground.HEIGHT) {
             position.y = Ground.HEIGHT;
+            velocity.y = 0;
         }
     }
 
     public void jump() {
+        if (isInTheAir()) {
+            return;
+        }
         velocity.y = 250;
+    }
+
+    public boolean isInTheAir() {
+        return velocity.y != 0.0;
     }
 
     public Rectangle getBounds() {
