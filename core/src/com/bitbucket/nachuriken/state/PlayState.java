@@ -1,5 +1,7 @@
 package com.bitbucket.nachuriken.state;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bitbucket.nachuriken.sprite.Carlos;
@@ -9,6 +11,7 @@ import com.bitbucket.nachuriken.sprite.Carlos;
  */
 public class PlayState extends AbstractState {
 
+    public static final int GROUND_HEIGHT = 112;
 
     private final Carlos carlos;
     private final Texture ground;
@@ -17,17 +20,21 @@ public class PlayState extends AbstractState {
         super(gsm);
 
         ground = new Texture("ground.png");
-        carlos = new Carlos(50, 112);
+        carlos = new Carlos(50, GROUND_HEIGHT);
     }
 
     @Override
     protected void handleInput() {
-
+        if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            carlos.jump();
+        }
     }
 
     @Override
     public void update(float dt) {
+        handleInput();
 
+        carlos.update(dt);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.bitbucket.nachuriken.sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.bitbucket.nachuriken.state.PlayState;
 
 /**
  * Ain't Nobody Got Time for That
@@ -25,12 +26,12 @@ public class Carlos {
     }
 
     public void update(float dt) {
-        if (position.y > 0) {
+        if (position.y > PlayState.GROUND_HEIGHT) {
             velocity.add(0, GRAVITY, 0);
         }
 
         velocity.scl(dt);
-        position.add(MOVEMENT * dt, velocity.y, 0);
+        position.add(0, velocity.y, 0);
 
         if (position.y < 0) {
             position.y = 0;
