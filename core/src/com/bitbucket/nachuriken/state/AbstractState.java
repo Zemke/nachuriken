@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
  * Ain't Nobody Got Time for That
  */
 public abstract class AbstractState {
+
     protected OrthographicCamera cam;
     protected Vector3 mouse;
     protected GameStateManager gsm;
