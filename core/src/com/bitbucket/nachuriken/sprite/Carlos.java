@@ -14,14 +14,14 @@ public class Carlos {
 
     private Vector3 position;
     private Vector3 velocity;
-    private Texture Carlos;
+    private Texture carlos;
     private Rectangle bounds;
 
     public Carlos(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        Carlos = new Texture("player.png");
-        bounds = new Rectangle(x, y, Carlos.getWidth(), Carlos.getHeight());
+        carlos = new Texture("player.png");
+        bounds = new Rectangle(x, y, carlos.getWidth(), carlos.getHeight());
     }
 
     public void update(float dt) {
@@ -53,6 +53,6 @@ public class Carlos {
     }
 
     public Texture getTexture() {
-        return Carlos;
+        return carlos;
     }
 }
