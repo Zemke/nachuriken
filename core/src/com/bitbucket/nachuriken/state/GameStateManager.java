@@ -8,30 +8,30 @@ import java.util.Stack;
  */
 public class GameStateManager {
 
-    private Stack<AbstractState> AbstractStates;
+    private Stack<AbstractState> states;
 
     public GameStateManager() {
-        this.AbstractStates = new Stack<AbstractState>();
+        this.states = new Stack<AbstractState>();
     }
 
     public void push(AbstractState AbstractState) {
-        AbstractStates.push(AbstractState);
+        states.push(AbstractState);
     }
 
     public void pop() {
-        AbstractStates.pop();
+        states.pop();
     }
 
     public void set(AbstractState AbstractState) {
-        AbstractStates.pop();
-        AbstractStates.push(AbstractState);
+        states.pop();
+        states.push(AbstractState);
     }
 
     public void update(float dt) {
-        AbstractStates.peek().update(dt);
+        states.peek().update(dt);
     }
 
     public void render(SpriteBatch sb) {
-        AbstractStates.peek().render(sb);
+        states.peek().render(sb);
     }
 }
