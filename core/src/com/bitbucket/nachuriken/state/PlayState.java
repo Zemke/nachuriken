@@ -20,6 +20,7 @@ public class PlayState extends AbstractState {
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
+        cam.setToOrtho(false, Nachuriken.WIDTH / 2, Nachuriken.HEIGHT / 2);
         ground = new Ground();
         carlos = new Carlos(200, Ground.HEIGHT);
 //        ghost = new Ghost(Nachuriken.WIDTH, Ground.HEIGHT);
@@ -36,13 +37,17 @@ public class PlayState extends AbstractState {
     @Override
     public void update(float dt) {
         handleInput();
+        cam.position.x = carlos.getPosition().x + 80;
 
         carlos.update(dt);
         ghost.update(dt);
+
+        cam.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
 
         for (int i = 0; i < ground.getGroundParts().size; i++) {
