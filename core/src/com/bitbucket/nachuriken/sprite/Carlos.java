@@ -13,7 +13,7 @@ import com.bitbucket.nachuriken.sprite.ground.Ground;
 public class Carlos {
 
     public static final int GRAVITY = -15;
-    public static final int JUMP_VELOCITY = 250;
+    public static final int JUMP_VELOCITY = 350;
     public static final int DIRECTION_MOVEMENT = 200;
 
     private Animation animation;
