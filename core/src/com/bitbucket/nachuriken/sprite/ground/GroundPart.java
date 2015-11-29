@@ -1,28 +1,25 @@
 package com.bitbucket.nachuriken.sprite.ground;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  * Ain't Nobody Got Time for That
  */
 public class GroundPart {
 
-    private final int x;
-    private final int y;
-    private final Texture texture;
+    private Vector3 position;
+    private Texture texture;
+    private Rectangle bounds;
 
     public GroundPart(int x) {
-        this.x = x;
-        this.y = 0;
+        position = new Vector3(x, 0, 0);
         texture = new Texture("ground.png");
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Vector3 getPosition() {
+        return position;
     }
 
     public Texture getTexture() {

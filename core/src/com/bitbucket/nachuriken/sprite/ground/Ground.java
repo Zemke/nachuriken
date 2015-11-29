@@ -1,7 +1,6 @@
 package com.bitbucket.nachuriken.sprite.ground;
 
-import com.badlogic.gdx.utils.Array;
-import com.bitbucket.nachuriken.Nachuriken;
+import java.util.ArrayDeque;
 
 /**
  * Ain't Nobody Got Time for That
@@ -10,17 +9,19 @@ public class Ground {
 
     public static final int WIDTH = 336;
     public static final int HEIGHT = 112;
-    private Array<GroundPart> groundParts;
+    public static final int NUMBER_OF_GROUNDS = 6;
+
+    private ArrayDeque<GroundPart> groundParts;
 
     public Ground() {
-        groundParts = new Array<GroundPart>();
+        groundParts = new ArrayDeque<GroundPart>(NUMBER_OF_GROUNDS);
 
-        while (WIDTH * groundParts.size < Nachuriken.WIDTH) {
-            groundParts.add(new GroundPart(WIDTH * groundParts.size));
+        for (int i = 0; i < NUMBER_OF_GROUNDS; i++) {
+            groundParts.add(new GroundPart(WIDTH * i));
         }
     }
 
-    public Array<GroundPart> getGroundParts() {
+    public ArrayDeque<GroundPart> getGroundParts() {
         return groundParts;
     }
 }
