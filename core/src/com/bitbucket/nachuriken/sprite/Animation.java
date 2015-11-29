@@ -37,5 +37,9 @@ public class Animation {
     public TextureRegion getFrame() {
         return frames.get(frame);
     }
+
+    public float getCurrentFrameTime() {
+        return currentFrameTime;
+    }
 }
 

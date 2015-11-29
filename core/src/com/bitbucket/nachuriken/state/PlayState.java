@@ -2,6 +2,7 @@ package com.bitbucket.nachuriken.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bitbucket.nachuriken.sprite.Carlos;
 import com.bitbucket.nachuriken.sprite.ground.Ground;
@@ -26,11 +27,6 @@ public class PlayState extends AbstractState {
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             carlos.jump();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            carlos.move(Input.Keys.RIGHT);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            carlos.move(Input.Keys.LEFT);
-        }
     }
 
     @Override
@@ -49,7 +45,19 @@ public class PlayState extends AbstractState {
                     ground.getGroundParts().get(i).getX(), ground.getGroundParts().get(i).getY());
         }
 
-        sb.draw(carlos.getTexture(), carlos.getPosition().x, carlos.getPosition().y);
+
+        boolean flip = false;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            carlos.move(Input.Keys.RIGHT);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            carlos.move(Input.Keys.LEFT);
+            flip = true;
+        }
+
+        sb.draw(carlos.getTexture(),
+                flip ? carlos.getPosition().x + carlos.getTexture().getRegionWidth() : carlos.getPosition().x, carlos.getPosition().y,
+                flip ? -carlos.getTexture().getRegionWidth() : carlos.getTexture().getRegionWidth(), carlos.getTexture().getRegionHeight());
 
         sb.end();
     }

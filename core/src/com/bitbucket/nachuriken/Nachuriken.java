@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bitbucket.nachuriken.state.GameStateManager;
 import com.bitbucket.nachuriken.state.MenuState;
+import com.bitbucket.nachuriken.state.PlayState;
 
 /**
  * Ain't Nobody Got Time for That
@@ -23,7 +24,7 @@ public class Nachuriken extends ApplicationAdapter {
         batch = new SpriteBatch();
         gsm = new GameStateManager();
         Gdx.gl.glClearColor(178 / 255f, 166 / 255f, 155 / 255f, 1);
-        gsm.push(new MenuState(gsm));
+        gsm.push(new PlayState(gsm));
     }
 
     @Override

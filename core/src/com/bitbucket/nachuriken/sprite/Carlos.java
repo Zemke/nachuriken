@@ -82,4 +82,8 @@ public class Carlos {
     public TextureRegion getTexture() {
         return carlosAnimation.getFrame();
     }
+
+    public Animation getCarlosAnimation() {
+        return carlosAnimation;
+    }
 }
