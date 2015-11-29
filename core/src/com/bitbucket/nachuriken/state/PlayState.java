@@ -26,6 +26,11 @@ public class PlayState extends AbstractState {
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             carlos.jump();
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            carlos.move(Input.Keys.RIGHT);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            carlos.move(Input.Keys.LEFT);
+        }
     }
 
     @Override
