@@ -3,6 +3,8 @@ package com.bitbucket.nachuriken.sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.bitbucket.nachuriken.Nachuriken;
+import com.bitbucket.nachuriken.sprite.ground.Ground;
 
 import java.util.Random;
 
@@ -11,10 +13,6 @@ import java.util.Random;
  */
 public class Ghost {
 
-    public static final int MAX_SPEED = 200;
-    public static final int MIN_SPEED = 10;
-    public static final int MAX_HEIGHT = 20;
-    public static final int MIN_HEIGHT = 10;
     private Vector3 position;
     private Vector3 velocity;
     private Texture ghost;
@@ -28,19 +26,17 @@ public class Ghost {
     }
 
     public void update(float dt) {
-        Random random = new Random();
-        int randomNumber = (random.nextInt(MAX_HEIGHT) - MIN_HEIGHT);
+        float random = (float) Math.random();
 
-        velocity.add(
-                -(MIN_SPEED + (int) (Math.random() * ((MAX_SPEED - MIN_SPEED) + 1))),
-                -randomNumber,
-                0);
+        if (position.y >= 200 ) {
+            velocity.y = -random;
+        } else if (position.y <= Ground.HEIGHT) {
+            velocity.y = random;
+        }
 
+        velocity.x = -random;
 
-
-        velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);
-
         bounds.setPosition(position.x, position.y);
     }
 
