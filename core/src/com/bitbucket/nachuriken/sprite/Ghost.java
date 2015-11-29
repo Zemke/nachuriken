@@ -13,8 +13,8 @@ public class Ghost {
 
     public static final int MAX_SPEED = 200;
     public static final int MIN_SPEED = 10;
-    public static final int MAX_HEIGHT = 30;
-    public static final int MIN_HEIGHT = 0;
+    public static final int MAX_HEIGHT = 20;
+    public static final int MIN_HEIGHT = 10;
     private Vector3 position;
     private Vector3 velocity;
     private Texture ghost;
@@ -28,13 +28,15 @@ public class Ghost {
     }
 
     public void update(float dt) {
-        Random random=new Random();
-        int randomNumber=(random.nextInt(MAX_HEIGHT)-MIN_HEIGHT);
+        Random random = new Random();
+        int randomNumber = (random.nextInt(MAX_HEIGHT) - MIN_HEIGHT);
 
         velocity.add(
-                -(MIN_SPEED + (int)(Math.random() * ((MAX_SPEED - MIN_SPEED) + 1))),
-                randomNumber,
+                -(MIN_SPEED + (int) (Math.random() * ((MAX_SPEED - MIN_SPEED) + 1))),
+                -randomNumber,
                 0);
+
+
 
         velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);
