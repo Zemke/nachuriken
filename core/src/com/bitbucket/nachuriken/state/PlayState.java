@@ -2,9 +2,10 @@ package com.bitbucket.nachuriken.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bitbucket.nachuriken.Nachuriken;
 import com.bitbucket.nachuriken.sprite.Carlos;
+import com.bitbucket.nachuriken.sprite.Ghost;
 import com.bitbucket.nachuriken.sprite.ground.Ground;
 
 /**
@@ -13,6 +14,7 @@ import com.bitbucket.nachuriken.sprite.ground.Ground;
 public class PlayState extends AbstractState {
 
     private final Carlos carlos;
+    private final Ghost ghost;
     private Ground ground;
 
     public PlayState(GameStateManager gsm) {
@@ -20,6 +22,8 @@ public class PlayState extends AbstractState {
 
         ground = new Ground();
         carlos = new Carlos(200, Ground.HEIGHT);
+//        ghost = new Ghost(Nachuriken.WIDTH, Ground.HEIGHT);
+        ghost = new Ghost(500, Ground.HEIGHT);
     }
 
     @Override
@@ -34,6 +38,7 @@ public class PlayState extends AbstractState {
         handleInput();
 
         carlos.update(dt);
+        ghost.update(dt);
     }
 
     @Override
@@ -45,6 +50,7 @@ public class PlayState extends AbstractState {
                     ground.getGroundParts().get(i).getX(), ground.getGroundParts().get(i).getY());
         }
 
+        sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y);
 
         boolean flip = false;
 
