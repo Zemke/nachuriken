@@ -67,7 +67,6 @@ public class PlayState extends AbstractState {
             GroundPart newFirst = groundParts.pollLast();
             newFirst.getPosition().x = startOfFirst - Ground.WIDTH;
             groundParts.addFirst(newFirst);
-            System.out.println("Add to left");
         }
 
         float startOfLast = groundParts.getLast().getPosition().x;
@@ -76,7 +75,6 @@ public class PlayState extends AbstractState {
             GroundPart newLast = groundParts.pollFirst();
             newLast.getPosition().x = startOfLast + Ground.WIDTH;
             groundParts.addLast(newLast);
-            System.out.println("Add to right");
         }
     }
 
@@ -90,7 +88,9 @@ public class PlayState extends AbstractState {
                     groundPart.getPosition().x, groundPart.getPosition().y);
         }
 
-        sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y);
+        sb.draw(ghost.getTexture(),
+                ghost.isFlipped() ? ghost.getPosition().x + ghost.getTexture().getWidth() : ghost.getPosition().x, ghost.getPosition().y,
+                ghost.isFlipped() ? -ghost.getTexture().getWidth() : ghost.getTexture().getWidth(), ghost.getTexture().getHeight());
 
         boolean flip = false;
 
