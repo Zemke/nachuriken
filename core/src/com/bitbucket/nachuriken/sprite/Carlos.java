@@ -16,7 +16,7 @@ public class Carlos {
     public static final int JUMP_VELOCITY = 250;
     public static final int DIRECTION_MOVEMENT = 200;
 
-    private Animation carlosAnimation;
+    private Animation animation;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -27,12 +27,12 @@ public class Carlos {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         carlos = new Texture("player-run.png");
-        carlosAnimation = new Animation(new TextureRegion(carlos), 3, 0.3f);
+        animation = new Animation(new TextureRegion(carlos), 3, 0.3f);
         bounds = new Rectangle(x, y, carlos.getWidth(), carlos.getHeight());
     }
 
     public void update(float dt) {
-        carlosAnimation.update(dt);
+        animation.update(dt);
 
         if (position.y > Ground.HEIGHT) {
             velocity.add(0, GRAVITY, 0);
@@ -80,10 +80,6 @@ public class Carlos {
     }
 
     public TextureRegion getTexture() {
-        return carlosAnimation.getFrame();
-    }
-
-    public Animation getCarlosAnimation() {
-        return carlosAnimation;
+        return animation.getFrame();
     }
 }
