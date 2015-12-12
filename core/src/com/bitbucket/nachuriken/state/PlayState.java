@@ -26,8 +26,7 @@ public class PlayState extends AbstractState {
         cam.setToOrtho(false, Nachuriken.WIDTH / 2, Nachuriken.HEIGHT / 2);
         ground = new Ground();
         carlos = new Carlos(Ground.WIDTH + (Ground.WIDTH / 2), Ground.HEIGHT);
-//        ghost = new Ghost(Nachuriken.WIDTH, Ground.HEIGHT);
-        ghost = new Ghost(500, Ground.HEIGHT);
+        ghost = new Ghost(Ground.WIDTH * 2, Ground.HEIGHT);
     }
 
     @Override
