@@ -18,6 +18,7 @@ public class PlayState extends AbstractState {
 
     private final Carlos carlos;
     private final Ghost ghost;
+    private final Nacho nacho;
     private Ground ground;
 
     public PlayState(GameStateManager gsm) {
@@ -27,6 +28,7 @@ public class PlayState extends AbstractState {
         ground = new Ground();
         carlos = new Carlos(Ground.WIDTH + (Ground.WIDTH / 2), Ground.HEIGHT);
         ghost = new Ghost(Ground.WIDTH * 2, Ground.HEIGHT);
+        nacho = new Nacho(Ground.WIDTH * 2, Ground.HEIGHT);
     }
 
     @Override
@@ -81,6 +83,8 @@ public class PlayState extends AbstractState {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+
+        sb.draw(nacho.getTexture(), nacho.getPosition().x, nacho.getPosition().y);
 
         for (GroundPart groundPart : ground.getGroundParts()) {
             sb.draw(groundPart.getTexture(),
