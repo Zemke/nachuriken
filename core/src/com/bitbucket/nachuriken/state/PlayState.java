@@ -40,7 +40,7 @@ public class PlayState extends AbstractState {
             carlos.jump();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             // Throw a nacho.
             throwNewNacho = true;
         }

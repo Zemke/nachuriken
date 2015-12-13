@@ -10,7 +10,7 @@ import com.bitbucket.nachuriken.sprite.ground.Ground;
  */
 public class Nacho {
 
-    public static final int GRAVITY = -30;
+    public static final int GRAVITY = -15;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -19,14 +19,14 @@ public class Nacho {
 
     public Nacho(int x, int y) {
         position = new Vector3(x, y, 0);
-        velocity = new Vector3(0, 0, 0);
+        velocity = new Vector3(0, 200, 0);
         texture = new Texture("nacho.png");
         bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
     }
 
     public void update(float dt) {
         if (position.y > Ground.HEIGHT) {
-            velocity.add(0, GRAVITY, 0);
+            velocity.add(500, GRAVITY, 0);
         }
 
         velocity.scl(dt);
