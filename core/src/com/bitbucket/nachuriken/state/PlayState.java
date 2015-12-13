@@ -10,6 +10,8 @@ import com.bitbucket.nachuriken.sprite.ground.Ground;
 import com.bitbucket.nachuriken.sprite.ground.GroundPart;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Ain't Nobody Got Time for That
@@ -18,8 +20,9 @@ public class PlayState extends AbstractState {
 
     private final Carlos carlos;
     private final Ghost ghost;
-    private final Nacho nacho;
+    private final List<Nacho> nachosFlyingAround;
     private Ground ground;
+    private boolean throwNewNacho;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -28,13 +31,18 @@ public class PlayState extends AbstractState {
         ground = new Ground();
         carlos = new Carlos(Ground.WIDTH + (Ground.WIDTH / 2), Ground.HEIGHT);
         ghost = new Ghost(Ground.WIDTH * 2, Ground.HEIGHT);
-        nacho = new Nacho(Ground.WIDTH * 2, Ground.HEIGHT);
+        nachosFlyingAround = new ArrayList<Nacho>();
     }
 
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             carlos.jump();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            // Throw a nacho.
+            throwNewNacho = true;
         }
     }
 
@@ -46,6 +54,10 @@ public class PlayState extends AbstractState {
 
         carlos.update(dt);
         ghost.update(dt);
+
+        for (Nacho nacho : nachosFlyingAround) {
+            nacho.update(dt);
+        }
 
         cam.update();
     }
@@ -84,17 +96,6 @@ public class PlayState extends AbstractState {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
 
-        sb.draw(nacho.getTexture(), nacho.getPosition().x, nacho.getPosition().y);
-
-        for (GroundPart groundPart : ground.getGroundParts()) {
-            sb.draw(groundPart.getTexture(),
-                    groundPart.getPosition().x, groundPart.getPosition().y);
-        }
-
-        sb.draw(ghost.getTexture(),
-                ghost.isFlipped() ? ghost.getPosition().x + ghost.getTexture().getWidth() : ghost.getPosition().x, ghost.getPosition().y,
-                ghost.isFlipped() ? -ghost.getTexture().getWidth() : ghost.getTexture().getWidth(), ghost.getTexture().getHeight());
-
         boolean flip = false;
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -107,6 +108,24 @@ public class PlayState extends AbstractState {
         sb.draw(carlos.getTexture(),
                 flip ? carlos.getPosition().x + carlos.getTexture().getRegionWidth() : carlos.getPosition().x, carlos.getPosition().y,
                 flip ? -carlos.getTexture().getRegionWidth() : carlos.getTexture().getRegionWidth(), carlos.getTexture().getRegionHeight());
+
+        if (throwNewNacho) {
+            nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12, (int) carlos.getPosition().y + 5));
+            throwNewNacho = false;
+        }
+
+        for (Nacho nacho : nachosFlyingAround) {
+            sb.draw(nacho.getTexture(), nacho.getPosition().x, nacho.getPosition().y);
+        }
+
+        for (GroundPart groundPart : ground.getGroundParts()) {
+            sb.draw(groundPart.getTexture(),
+                    groundPart.getPosition().x, groundPart.getPosition().y);
+        }
+
+        sb.draw(ghost.getTexture(),
+                ghost.isFlipped() ? ghost.getPosition().x + ghost.getTexture().getWidth() : ghost.getPosition().x, ghost.getPosition().y,
+                ghost.isFlipped() ? -ghost.getTexture().getWidth() : ghost.getTexture().getWidth(), ghost.getTexture().getHeight());
 
         sb.end();
     }
