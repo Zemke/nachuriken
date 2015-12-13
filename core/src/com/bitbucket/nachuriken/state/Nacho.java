@@ -10,48 +10,48 @@ import com.bitbucket.nachuriken.sprite.ground.Ground;
  */
 public class Nacho {
 
-        public static final int GRAVITY = -30;
+    public static final int GRAVITY = -30;
 
-        private Vector3 position;
-        private Vector3 velocity;
-        private Texture texture;
-        private Rectangle bounds;
+    private Vector3 position;
+    private Vector3 velocity;
+    private Texture texture;
+    private Rectangle bounds;
 
-        public Nacho(int x, int y) {
-            position = new Vector3(x, y, 0);
-            velocity = new Vector3(0, 0, 0);
-            texture = new Texture("nacho.png");
-            bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+    public Nacho(int x, int y) {
+        position = new Vector3(x, y, 0);
+        velocity = new Vector3(0, 0, 0);
+        texture = new Texture("nacho.png");
+        bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+    }
+
+    public void update(float dt) {
+        if (position.y > Ground.HEIGHT) {
+            velocity.add(0, GRAVITY, 0);
         }
 
-        public void update(float dt) {
-            if (position.y > Ground.HEIGHT) {
-                velocity.add(0, GRAVITY, 0);
-            }
+        velocity.scl(dt);
+        position.add(velocity.x, velocity.y, 0);
 
-            velocity.scl(dt);
-            position.add(velocity.x, velocity.y, 0);
+        velocity.scl(1 / dt);
+        bounds.setPosition(position.x, position.y);
 
-            velocity.scl(1 / dt);
-            bounds.setPosition(position.x, position.y);
-
-            if (position.y <= Ground.HEIGHT) {
-                position.y = Ground.HEIGHT;
-                velocity.y = 0;
-            }
-
-            velocity.x = 0;
+        if (position.y <= Ground.HEIGHT) {
+            position.y = Ground.HEIGHT;
+            velocity.y = 0;
         }
 
-        public Rectangle getBounds() {
-            return bounds;
-        }
+        velocity.x = 0;
+    }
 
-        public Vector3 getPosition() {
-            return position;
-        }
+    public Rectangle getBounds() {
+        return bounds;
+    }
 
-        public Texture getTexture() {
-            return texture;
-        }
+    public Vector3 getPosition() {
+        return position;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
 }
