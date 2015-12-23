@@ -96,18 +96,17 @@ public class PlayState extends AbstractState {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
 
-        boolean flip = false;
-
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             carlos.move(Input.Keys.RIGHT);
+            carlos.setFlipped(false);
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             carlos.move(Input.Keys.LEFT);
-            flip = true;
+            carlos.setFlipped(true);
         }
 
         sb.draw(carlos.getTexture(),
-                flip ? carlos.getPosition().x + carlos.getTexture().getRegionWidth() : carlos.getPosition().x, carlos.getPosition().y,
-                flip ? -carlos.getTexture().getRegionWidth() : carlos.getTexture().getRegionWidth(), carlos.getTexture().getRegionHeight());
+                carlos.isFlipped() ? carlos.getPosition().x + carlos.getTexture().getRegionWidth() : carlos.getPosition().x, carlos.getPosition().y,
+                carlos.isFlipped() ? -carlos.getTexture().getRegionWidth() : carlos.getTexture().getRegionWidth(), carlos.getTexture().getRegionHeight());
 
         if (throwNewNacho) {
             nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12, (int) carlos.getPosition().y + 5));

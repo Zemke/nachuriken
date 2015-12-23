@@ -15,6 +15,7 @@ public class Carlos {
     public static final int GRAVITY = -15;
     public static final int JUMP_VELOCITY = 350;
     public static final int DIRECTION_MOVEMENT = 200;
+    private boolean flipped;
 
     private Animation animation;
 
@@ -29,6 +30,7 @@ public class Carlos {
         carlos = new Texture("player-run.png");
         animation = new Animation(new TextureRegion(carlos), 3, 0.3f);
         bounds = new Rectangle(x, y, carlos.getWidth(), carlos.getHeight());
+        flipped = false;
     }
 
     public void update(float dt) {
@@ -81,5 +83,13 @@ public class Carlos {
 
     public TextureRegion getTexture() {
         return animation.getFrame();
+    }
+
+    public boolean isFlipped() {
+        return flipped;
+    }
+
+    public void setFlipped(boolean flipped) {
+        this.flipped = flipped;
     }
 }
