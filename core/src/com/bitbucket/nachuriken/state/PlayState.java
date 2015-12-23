@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bitbucket.nachuriken.Nachuriken;
+import com.bitbucket.nachuriken.Util;
 import com.bitbucket.nachuriken.sprite.Carlos;
 import com.bitbucket.nachuriken.sprite.Ghost;
 import com.bitbucket.nachuriken.sprite.ground.Ground;
@@ -105,8 +106,8 @@ public class PlayState extends AbstractState {
         }
 
         sb.draw(carlos.getTexture(),
-                carlos.isFlipped() ? carlos.getPosition().x + carlos.getTexture().getRegionWidth() : carlos.getPosition().x, carlos.getPosition().y,
-                carlos.isFlipped() ? -carlos.getTexture().getRegionWidth() : carlos.getTexture().getRegionWidth(), carlos.getTexture().getRegionHeight());
+                Util.flipX(carlos.isFlipped(), carlos.getPosition().x, carlos.getTexture().getRegionWidth()), carlos.getPosition().y,
+                Util.flipY(carlos.isFlipped(), carlos.getTexture().getRegionWidth()), carlos.getTexture().getRegionHeight());
 
         if (throwNewNacho) {
             nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12, (int) carlos.getPosition().y + 5));
@@ -123,8 +124,8 @@ public class PlayState extends AbstractState {
         }
 
         sb.draw(ghost.getTexture(),
-                ghost.isFlipped() ? ghost.getPosition().x + ghost.getTexture().getWidth() : ghost.getPosition().x, ghost.getPosition().y,
-                ghost.isFlipped() ? -ghost.getTexture().getWidth() : ghost.getTexture().getWidth(), ghost.getTexture().getHeight());
+                Util.flipX(ghost.isFlipped(), ghost.getPosition().x, ghost.getTexture().getWidth()), ghost.getPosition().y,
+                Util.flipY(ghost.isFlipped(), ghost.getTexture().getWidth()), ghost.getTexture().getHeight());
 
         sb.end();
     }
