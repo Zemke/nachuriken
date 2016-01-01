@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
  * Ain't Nobody Got Time for That
  */
 public class Animation {
+
     private Array<TextureRegion> frames;
     private float maxFrameTime;
     private float currentFrameTime;
@@ -24,14 +25,22 @@ public class Animation {
         frame = 0;
     }
 
-    public void update(float dt) {
+    public void update(float dt, boolean moving) {
         currentFrameTime += dt;
+
+        if (!moving) {
+            frame = 0;
+            return;
+        }
+
         if (currentFrameTime > maxFrameTime) {
             frame++;
             currentFrameTime = 0;
         }
-        if (frame >= frameCount)
+
+        if (frame >= frameCount) {
             frame = 0;
+        }
     }
 
     public TextureRegion getFrame() {

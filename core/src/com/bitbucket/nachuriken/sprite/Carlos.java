@@ -23,6 +23,7 @@ public class Carlos {
     private Vector3 velocity;
     private Texture carlos;
     private Rectangle bounds;
+    private boolean moving;
 
     public Carlos(int x, int y) {
         position = new Vector3(x, y, 0);
@@ -34,7 +35,7 @@ public class Carlos {
     }
 
     public void update(float dt) {
-        animation.update(dt);
+        animation.update(dt, moving);
 
         if (position.y > Ground.HEIGHT) {
             velocity.add(0, GRAVITY, 0);
@@ -91,5 +92,13 @@ public class Carlos {
 
     public void setFlipped(boolean flipped) {
         this.flipped = flipped;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }

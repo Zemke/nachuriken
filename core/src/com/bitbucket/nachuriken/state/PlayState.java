@@ -99,10 +99,14 @@ public class PlayState extends AbstractState {
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             carlos.move(Input.Keys.RIGHT);
+            carlos.setMoving(true);
             carlos.setFlipped(false);
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             carlos.move(Input.Keys.LEFT);
+            carlos.setMoving(true);
             carlos.setFlipped(true);
+        } else {
+            carlos.setMoving(false);
         }
 
         sb.draw(carlos.getTexture(),
