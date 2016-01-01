@@ -110,7 +110,8 @@ public class PlayState extends AbstractState {
                 Util.flipY(carlos.isFlipped(), carlos.getTexture().getRegionWidth()), carlos.getTexture().getRegionHeight());
 
         if (throwNewNacho) {
-            nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12, (int) carlos.getPosition().y + 5));
+            nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12,
+                    (int) carlos.getPosition().y + 5, carlos.isFlipped()));
             throwNewNacho = false;
         }
 

@@ -16,17 +16,19 @@ public class Nacho {
     private Vector3 velocity;
     private Texture texture;
     private Rectangle bounds;
+    private boolean flipped;
 
-    public Nacho(int x, int y) {
+    public Nacho(int x, int y, boolean flipped) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 200, 0);
         texture = new Texture("nacho.png");
         bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+        this.flipped = flipped;
     }
 
     public void update(float dt) {
         if (position.y > Ground.HEIGHT) {
-            velocity.add(500, GRAVITY, 0);
+            velocity.add(flipped ? -500 : 500, GRAVITY, 0);
         }
 
         velocity.scl(dt);
