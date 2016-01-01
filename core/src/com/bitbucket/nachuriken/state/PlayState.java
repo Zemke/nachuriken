@@ -114,12 +114,16 @@ public class PlayState extends AbstractState {
             carlos.setCrouched(false);
         }
 
-        if (!carlos.isCrouched()) {
+        if (carlos.isCrouched()) {
+            sb.draw(carlos.getCrouchedCarlos(), carlos.getPosition().x, carlos.getPosition().y);
+        } else if (carlos.isInTheAir()) {
+            sb.draw(carlos.getJumpingCarlos(),
+                    Util.flipX(carlos.isFlipped(), carlos.getPosition().x, carlos.getJumpingCarlos().getWidth()), carlos.getPosition().y,
+                    Util.flipY(carlos.isFlipped(), carlos.getJumpingCarlos().getWidth()), carlos.getJumpingCarlos().getHeight());
+        } else {
             sb.draw(carlos.getTexture(),
                     Util.flipX(carlos.isFlipped(), carlos.getPosition().x, carlos.getTexture().getRegionWidth()), carlos.getPosition().y,
                     Util.flipY(carlos.isFlipped(), carlos.getTexture().getRegionWidth()), carlos.getTexture().getRegionHeight());
-        } else {
-            sb.draw(carlos.getCrouchedCarlos(), carlos.getPosition().x, carlos.getPosition().y);
         }
 
         if (throwNewNacho) {
