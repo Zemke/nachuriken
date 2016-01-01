@@ -22,6 +22,8 @@ public class Carlos {
     private Vector3 position;
     private Vector3 velocity;
     private Texture carlos;
+    private Texture crouchedCarlos;
+    private boolean crouched;
     private Rectangle bounds;
     private boolean moving;
 
@@ -29,6 +31,7 @@ public class Carlos {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         carlos = new Texture("player-run.png");
+        crouchedCarlos = new Texture("player-crouch.png");
         animation = new Animation(new TextureRegion(carlos), 3, 0.3f);
         bounds = new Rectangle(x, y, carlos.getWidth(), carlos.getHeight());
         flipped = false;
@@ -100,5 +103,21 @@ public class Carlos {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public boolean isCrouched() {
+        return crouched;
+    }
+
+    public void setCrouched(boolean crouched) {
+        this.crouched = crouched;
+    }
+
+    public Texture getCrouchedCarlos() {
+        return crouchedCarlos;
+    }
+
+    public void setCrouchedCarlos(Texture crouchedCarlos) {
+        this.crouchedCarlos = crouchedCarlos;
     }
 }

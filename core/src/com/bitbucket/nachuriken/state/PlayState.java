@@ -101,17 +101,26 @@ public class PlayState extends AbstractState {
             carlos.move(Input.Keys.RIGHT);
             carlos.setMoving(true);
             carlos.setFlipped(false);
+            carlos.setCrouched(false);
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             carlos.move(Input.Keys.LEFT);
             carlos.setMoving(true);
             carlos.setFlipped(true);
+            carlos.setCrouched(false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            carlos.setCrouched(true);
         } else {
             carlos.setMoving(false);
+            carlos.setCrouched(false);
         }
 
-        sb.draw(carlos.getTexture(),
-                Util.flipX(carlos.isFlipped(), carlos.getPosition().x, carlos.getTexture().getRegionWidth()), carlos.getPosition().y,
-                Util.flipY(carlos.isFlipped(), carlos.getTexture().getRegionWidth()), carlos.getTexture().getRegionHeight());
+        if (!carlos.isCrouched()) {
+            sb.draw(carlos.getTexture(),
+                    Util.flipX(carlos.isFlipped(), carlos.getPosition().x, carlos.getTexture().getRegionWidth()), carlos.getPosition().y,
+                    Util.flipY(carlos.isFlipped(), carlos.getTexture().getRegionWidth()), carlos.getTexture().getRegionHeight());
+        } else {
+            sb.draw(carlos.getCrouchedCarlos(), carlos.getPosition().x, carlos.getPosition().y);
+        }
 
         if (throwNewNacho) {
             nachosFlyingAround.add(new Nacho((int) carlos.getPosition().x + 12,
