@@ -16,8 +16,16 @@ public class Ground {
     public Ground() {
         groundParts = new ArrayDeque<GroundPart>(NUMBER_OF_GROUNDS);
 
+        int groundAlternator = 1;
+
         for (int i = 0; i < NUMBER_OF_GROUNDS; i++) {
-            groundParts.add(new GroundPart(WIDTH * i));
+            if (groundAlternator > 3) {
+                groundAlternator = 1;
+            }
+
+            groundParts.add(new GroundPart(WIDTH * i, groundAlternator));
+
+            groundAlternator++;
         }
     }
 

@@ -13,9 +13,9 @@ public class GroundPart {
     private Texture texture;
     private Rectangle bounds;
 
-    public GroundPart(int x) {
+    public GroundPart(int x, int groundAlternator) {
         position = new Vector3(x, 0, 0);
-        texture = new Texture("ground.png");
+        texture = new Texture("map" + groundAlternator + ".png");
     }
 
     public Vector3 getPosition() {

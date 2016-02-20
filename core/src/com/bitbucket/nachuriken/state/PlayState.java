@@ -114,6 +114,11 @@ public class PlayState extends AbstractState {
             carlos.setCrouched(false);
         }
 
+        for (GroundPart groundPart : ground.getGroundParts()) {
+            sb.draw(groundPart.getTexture(),
+                    groundPart.getPosition().x, groundPart.getPosition().y);
+        }
+
         if (carlos.isCrouched()) {
             sb.draw(carlos.getCrouchedCarlos(), carlos.getPosition().x, carlos.getPosition().y);
         } else if (carlos.isInTheAir()) {
@@ -134,11 +139,6 @@ public class PlayState extends AbstractState {
 
         for (Nacho nacho : nachosFlyingAround) {
             sb.draw(nacho.getTexture(), nacho.getPosition().x, nacho.getPosition().y);
-        }
-
-        for (GroundPart groundPart : ground.getGroundParts()) {
-            sb.draw(groundPart.getTexture(),
-                    groundPart.getPosition().x, groundPart.getPosition().y);
         }
 
         sb.draw(ghost.getTexture(),
