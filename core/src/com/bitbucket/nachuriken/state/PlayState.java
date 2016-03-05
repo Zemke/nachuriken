@@ -3,6 +3,7 @@ package com.bitbucket.nachuriken.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bitbucket.nachuriken.Highscore;
 import com.bitbucket.nachuriken.Nachuriken;
 import com.bitbucket.nachuriken.Util;
 import com.bitbucket.nachuriken.sprite.Carlos;
@@ -22,6 +23,7 @@ public class PlayState extends AbstractState {
     private final Carlos carlos;
     private final Ghost ghost;
     private final List<Nacho> nachosFlyingAround;
+    private final Highscore highscore;
     private Ground ground;
     private boolean throwNewNacho;
 
@@ -33,6 +35,7 @@ public class PlayState extends AbstractState {
         carlos = new Carlos(Ground.WIDTH + (Ground.WIDTH / 2), Ground.HEIGHT);
         ghost = new Ghost(Ground.WIDTH * 2, Ground.HEIGHT);
         nachosFlyingAround = new ArrayList<Nacho>();
+        highscore = new Highscore(carlos.getPosition().x);
     }
 
     @Override
@@ -55,6 +58,7 @@ public class PlayState extends AbstractState {
 
         carlos.update(dt);
         ghost.update(dt);
+        highscore.update(carlos.getPosition().x);
 
         for (Nacho nacho : nachosFlyingAround) {
             nacho.update(dt);
@@ -144,6 +148,8 @@ public class PlayState extends AbstractState {
         sb.draw(ghost.getTexture(),
                 Util.flipX(ghost.isFlipped(), ghost.getPosition().x, ghost.getTexture().getWidth()), ghost.getPosition().y,
                 Util.flipY(ghost.isFlipped(), ghost.getTexture().getWidth()), ghost.getTexture().getHeight());
+
+        highscore.getText().draw(sb, String.valueOf((int) highscore.getHighscore()), cam.position.x +  5 - cam.viewportWidth / 2, 15);
 
         sb.end();
     }
