@@ -9,6 +9,7 @@ public class Highscore {
 
     private final BitmapFont text;
     private float highscore;
+    private float overallHigh;
 
     public Highscore(float startingPosition) {
         highscore = calc(startingPosition);
@@ -32,5 +33,9 @@ public class Highscore {
 
     public BitmapFont getText() {
         return text;
+    }
+
+    public void startOver() {
+        overallHigh = highscore;
     }
 }

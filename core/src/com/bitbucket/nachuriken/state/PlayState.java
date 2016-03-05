@@ -40,8 +40,29 @@ public class PlayState extends AbstractState {
 
     @Override
     protected void handleInput() {
+        if (carlos.isDieing()) {
+            return;
+        }
+
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             carlos.jump();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            carlos.move(Input.Keys.RIGHT);
+            carlos.setMoving(true);
+            carlos.setFlipped(false);
+            carlos.setCrouched(false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            carlos.move(Input.Keys.LEFT);
+            carlos.setMoving(true);
+            carlos.setFlipped(true);
+            carlos.setCrouched(false);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            carlos.setCrouched(true);
+        } else {
+            carlos.setMoving(false);
+            carlos.setCrouched(false);
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -62,6 +83,11 @@ public class PlayState extends AbstractState {
 
         for (Nacho nacho : nachosFlyingAround) {
             nacho.update(dt);
+        }
+
+        if (carlos.getBounds().overlaps(ghost.getBounds())) {
+            highscore.startOver();
+            carlos.dieHard();
         }
 
         cam.update();
@@ -100,23 +126,6 @@ public class PlayState extends AbstractState {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            carlos.move(Input.Keys.RIGHT);
-            carlos.setMoving(true);
-            carlos.setFlipped(false);
-            carlos.setCrouched(false);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            carlos.move(Input.Keys.LEFT);
-            carlos.setMoving(true);
-            carlos.setFlipped(true);
-            carlos.setCrouched(false);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            carlos.setCrouched(true);
-        } else {
-            carlos.setMoving(false);
-            carlos.setCrouched(false);
-        }
 
         for (GroundPart groundPart : ground.getGroundParts()) {
             sb.draw(groundPart.getTexture(),

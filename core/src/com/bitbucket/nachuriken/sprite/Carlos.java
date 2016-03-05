@@ -27,6 +27,7 @@ public class Carlos {
     private boolean crouched;
     private Rectangle bounds;
     private boolean moving;
+    private boolean dieing;
 
     public Carlos(int x, int y) {
         position = new Vector3(x, y, 0);
@@ -35,11 +36,20 @@ public class Carlos {
         crouchedCarlos = new Texture("player-crouch.png");
         jumpingCarlos = new Texture("player-jump.png");
         animation = new Animation(new TextureRegion(carlos), 3, 0.3f);
-        bounds = new Rectangle(x, y, carlos.getWidth(), carlos.getHeight());
+        bounds = new Rectangle(x + (jumpingCarlos.getWidth() / 4), y, jumpingCarlos.getWidth() / 2, jumpingCarlos.getHeight());
         flipped = false;
+        dieing = false;
     }
 
     public void update(float dt) {
+        if (dieing) {
+            velocity.add(velocity.x, -300, 0);
+
+            velocity.scl(dt);
+            position.add(velocity.x, velocity.y, 0);
+            return;
+        }
+
         animation.update(dt, moving);
 
         if (position.y > Ground.HEIGHT) {
@@ -50,7 +60,7 @@ public class Carlos {
         position.add(velocity.x, velocity.y, 0);
 
         velocity.scl(1 / dt);
-        bounds.setPosition(position.x, position.y);
+        bounds.setPosition(position.x + (jumpingCarlos.getWidth() / 4), position.y);
 
         if (position.y <= Ground.HEIGHT) {
             position.y = Ground.HEIGHT;
@@ -129,5 +139,13 @@ public class Carlos {
 
     public void setJumpingCarlos(Texture jumpingCarlos) {
         this.jumpingCarlos = jumpingCarlos;
+    }
+
+    public void dieHard() {
+        dieing = true;
+    }
+
+    public boolean isDieing() {
+        return dieing;
     }
 }
