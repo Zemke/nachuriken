@@ -8,23 +8,26 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class Highscore {
 
     private final BitmapFont text;
+    private final float startingPosition;
     private float highscore;
-    private float overallHigh;
+    private Float overallHigh;
 
     public Highscore(float startingPosition) {
-        highscore = calc(startingPosition);
+        this.startingPosition = startingPosition;
+        highscore = calc(this.startingPosition);
         text = new BitmapFont();
         text.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void update(float newPosition) {
-        if (calc(newPosition) > highscore) {
-            highscore = calc(newPosition);
+        if (newPosition > highscore) {
+            highscore = newPosition;
         }
     }
 
     private float calc(float startingPosition) {
-        return (startingPosition - 502) / 11;
+        // TODO This should calculate a more user-friendly number as the highscore i.e. one not starting on 504 and not counting up so quickly.
+        return startingPosition;
     }
 
     public float getHighscore() {
@@ -36,6 +39,13 @@ public class Highscore {
     }
 
     public void startOver() {
-        overallHigh = highscore;
+        if (overallHigh == null || overallHigh.compareTo(highscore) < 0) {
+            overallHigh = highscore;
+        }
+        highscore = calc(startingPosition);
+    }
+
+    public Float getOverallHigh() {
+        return overallHigh;
     }
 }

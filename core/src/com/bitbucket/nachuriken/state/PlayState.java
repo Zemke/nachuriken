@@ -158,7 +158,18 @@ public class PlayState extends AbstractState {
                 Util.flipX(ghost.isFlipped(), ghost.getPosition().x, ghost.getTexture().getWidth()), ghost.getPosition().y,
                 Util.flipY(ghost.isFlipped(), ghost.getTexture().getWidth()), ghost.getTexture().getHeight());
 
-        highscore.getText().draw(sb, String.valueOf((int) highscore.getHighscore()), cam.position.x +  5 - cam.viewportWidth / 2, 15);
+        String msg = String.valueOf((int) highscore.getHighscore());
+
+        if (highscore.getOverallHigh() != null) {
+            msg += "/" + String.valueOf(highscore.getOverallHigh().intValue());
+        }
+
+        if (carlos.isDieing()) {
+            msg += " Try again!";
+        }
+
+        highscore.getText().draw(sb, msg, cam.position.x +  5 - cam.viewportWidth / 2, 15);
+
 
         sb.end();
     }

@@ -43,6 +43,11 @@ public class Carlos {
 
     public void update(float dt) {
         if (dieing) {
+            if (position.y < -200) {
+                position.x = 504;
+                dieing = false;
+            }
+
             velocity.add(velocity.x, -300, 0);
 
             velocity.scl(dt);
